@@ -1,85 +1,39 @@
 package dk.aau.pi.med2.nolse16.vote.system;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-//import java.net.DatagramSocket;
-import java.net.ServerSocket;
-import java.util.Date;
+import java.net.*;
+import java.io.*;
 
 public class VotingServerThread extends Thread {
+	private Socket socket = null;
 
-	protected ServerSocket socket = null;
-	protected BufferedReader in = null;
-	protected boolean moreQuotes = true;
+	public VotingServerThread(Socket socket) {
+		super("MultiVotingServerThread");
+		this.socket = socket;
+	}
 
-	public VotingServerThread() throws IOException {
-    	this("VotingServerThread");
-    }
-
-	public VotingServerThread(String name) throws IOException {
-        super(name);
-        socket = new ServerSocket(57677);
-
-        try {
-            System.out.println("listening on port: " + socket.getLocalPort());
-            in = new BufferedReader(new FileReader("./one-liners.txt"));
-        } catch (FileNotFoundException e) {
-            System.err.println("Could not open quote file. Serving time instead.");
-        }
-    }
-
-//	@Override
-//	public void run() {
-//		// TODO Auto-generated method stub
-//		super.run();
-//	}
 	public void run() {
 
-        while (moreQuotes) {
-            try {
-                byte[] buf = new byte[256];
+		try {
+			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-                    // receive request
-                DatagramPacket packet = new DatagramPacket(buf, buf.length);
-                socket.receive(packet);
+			String inputLine, outputLine;
+			KnockKnockProtocol kkp = new KnockKnockProtocol();
+			outputLine = kkp.processInput(null);
+			out.println(outputLine);
 
-                    // figure out response
-                String dString = null;
-                if (in == null)
-                    dString = new Date().toString();
-                else
-                    dString = getNextQuote();
-                buf = dString.getBytes();
+			while ((inputLine = in.readLine()) != null) {
+				outputLine = kkp.processInput(inputLine);
+				out.println(outputLine);
+				if (outputLine.equals("Bye"))
+					break;
+			}
+			out.close();
+			in.close();
+			socket.close();
 
-		    // send the response to the client at "address" and "port"
-                InetAddress address = packet.getAddress();
-                int port = packet.getPort();
-                packet = new DatagramPacket(buf, buf.length, address, port);
-                socket.send(packet);
-            } catch (IOException e) {
-                e.printStackTrace();
-                moreQuotes = false;
-            }
-        }
-        socket.close();
-    }
-
-    protected String getNextQuote() {
-        String returnValue = null;
-        try {
-            if ((returnValue = in.readLine()) == null) {
-                in.close();
-                moreQuotes = false;
-                returnValue = "No more quotes. Goodbye.";
-            }
-        } catch (IOException e) {
-            returnValue = "IOException occurred in server.";
-        }
-        return returnValue;
-    }
-
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
