@@ -62,4 +62,7 @@ public class VotingServerThread extends Thread {
 			// }
 		}
 	}
+	public void loadPolls() {
+		
+	}
 }
