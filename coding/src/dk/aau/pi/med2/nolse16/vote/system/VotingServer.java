@@ -8,10 +8,11 @@ public class VotingServer {
 			while (true) {
 				VotingServerThread t = new VotingServerThread();
 				t.start();
-				t.join();
+//				t.join();
 			}
-		} catch (InterruptedException e) {
-			return;
-		}
+//		} 
+//			catch (InterruptedException e) {
+//			return;
+//		}
 	}
 }
