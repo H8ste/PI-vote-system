@@ -1,30 +1,23 @@
 package dk.aau.pi.med2.nolse16.vote.system;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.io.*;
+import java.net.*;
 
 public class ClienTesting {
-    public static void main(String[] args) throws IOException {
-
-        // get a datagram socket
-    DatagramSocket socket = new DatagramSocket();
-
-        // send request
-    byte[] buf = new byte[256];
-    InetAddress address = InetAddress.getByName("localhost");
-    DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 4445);
-    socket.send(packet);
-
-        // get response
-    packet = new DatagramPacket(buf, buf.length);
-    socket.receive(packet);
-
-    // display response
-    String received = new String(packet.getData(), 0, packet.getLength());
-    System.out.println("Quote of the Moment: " + received);
-
-    socket.close();
-}
+	public static void main(String argv[]) throws Exception {
+		while (true) {
+			String sentence;
+			String modifiedSentence;
+			BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+			Socket clientSocket = new Socket("localhost", 4445);
+			DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+			// BufferedReader inFromServer = new BufferedReader(new
+			// InputStreamReader(clientSocket.getInputStream()));
+			sentence = inFromUser.readLine();
+			outToServer.writeBytes(sentence + '\n');
+			// modifiedSentence = inFromServer.readLine();
+			// System.out.println("FROM SERVER: " + modifiedSentence);
+			clientSocket.close();
+		}
+	}
 }
