@@ -12,7 +12,7 @@ public class VotingServer {
 			serverSocket = new ServerSocket(4445);
 			System.out.println(serverSocket.getLocalPort());
 		} catch (IOException e) {
-			System.err.println("Could not listen on port: " + serverSocket.getLocalPort() + ".");
+			System.err.println("Could not listen on port defined:");
 			System.exit(-1);
 		}
 
