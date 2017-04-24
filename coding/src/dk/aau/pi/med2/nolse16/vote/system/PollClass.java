@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.File;
 import java.io.FileInputStream;
 
 public class PollClass {
@@ -13,13 +12,6 @@ public class PollClass {
 	public int[] votes;
 	public String description;
 	public String[] buttonDescriptions;
-	public int = 12
-
-	public static void main(String[] string) {
-		 loadStrings("polls.txt");
-		 float[] closeArray = new float[count+1]
-//		System.out.println(loadStrings("polls.txt"));
-	}
 
 	public static int countLines(String filename) throws IOException {
 		InputStream is = new BufferedInputStream(new FileInputStream(filename));
@@ -52,7 +44,7 @@ public class PollClass {
 		}
 		String[] tempStringArray = null;
 		if (count != 0) {
-			tempStringArray = new String[count+1];
+			tempStringArray = new String[count + 1];
 		}
 
 		try {
@@ -63,7 +55,7 @@ public class PollClass {
 			while ((line = reader.readLine()) != null) {
 				tempStringArray[linecount] = line;
 				linecount++;
-				 System.out.println(line + " " + linecount);
+				// System.out.println(line + " " + linecount);
 			}
 
 		} catch (IOException e) {
