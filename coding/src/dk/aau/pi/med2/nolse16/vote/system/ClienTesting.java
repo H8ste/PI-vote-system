@@ -38,15 +38,17 @@ public class ClienTesting {
 				System.out.println("reaches here");
 			}
 //			Get Results
-			if (sentence.equals("test")) {
+			if ((sentence.substring(0,11)).equals("get results")) {
 				//sends to server with outToServer outputstream - sentence replaced with whatevs
+				System.out.println("get results + some shit is sent to server");
 				outToServer.writeBytes(sentence + '\n');
 				//waits and read input from, maybe not necessary in all cases
 				BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				//modified sentence == results from server
 				modifiedSentence = inFromServer.readLine();
 				System.out.println(modifiedSentence);	
-				System.out.println("reaches here");
+
+//				System.out.println("reaches here");
 			}
 //			outToServer.writeBytes(sentence + '\n');
 			// modifiedSentence = inFromServer.readLine();

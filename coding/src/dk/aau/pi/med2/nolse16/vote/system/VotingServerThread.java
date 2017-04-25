@@ -18,22 +18,14 @@ public class VotingServerThread extends Thread {
 				String inputLine;
 				if ((inputLine = in.readLine()) != null) {
 					System.out.println(inputLine);
-					
+
 					// Load Polls
 					if (inputLine.equals("loadPolls")) {
-						String[] tempStringArray = PollClass.loadStrings("./polls.txt");
-						String tempString = "";
-						
-						for (int i = 0; i < tempStringArray.length; i++) {
-							if (i == tempStringArray.length - 1) {
-								tempString += tempStringArray[i] + "\n";
-							} else {
-								tempString += tempStringArray[i] + ";";
-							}
-						}
+						String tempString = loadPolls();
 
-//						ByteArrayOutputStream outToClient = new ByteArrayOutputStream(socket.getOutputStream());
-						 DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
+						// ByteArrayOutputStream outToClient = new
+						// ByteArrayOutputStream(socket.getOutputStream());
+						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
 						// PrintWriter out = new
 						// PrintWriter(socket.getOutputStream(), true);
 						outToClient.writeBytes(tempString + "\n");
@@ -41,7 +33,7 @@ public class VotingServerThread extends Thread {
 						// out.writeBytes("sending from server");
 						System.out.println("sent from server now");
 					}
-					
+
 					// Create Polls
 					if (inputLine.equals("test")) {
 						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
@@ -52,9 +44,12 @@ public class VotingServerThread extends Thread {
 						// out.writeBytes("sending from server");
 						System.out.println("sent from server now");
 					}
-					
-					//Get results
-					if (inputLine.equals("test")) {
+
+					// Get results
+					if (inputLine.substring(0,11).equals("get results")) {
+						System.out.println("get results + some shit arrived to server");
+						String tempString = loadPolls();
+						
 						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
 						// PrintWriter out = new
 						// PrintWriter(socket.getOutputStream(), true);
@@ -70,7 +65,17 @@ public class VotingServerThread extends Thread {
 		}
 	}
 
-	public void loadPolls() {
+	public String loadPolls() {
+		String[] tempStringArray = PollClass.loadStrings("./polls.txt");
+		String tempString = "";
 
+		for (int i = 0; i < tempStringArray.length; i++) {
+			if (i == tempStringArray.length - 1) {
+				tempString += tempStringArray[i] + "\n";
+			} else {
+				tempString += tempStringArray[i] + ";";
+			}
+		}
+		return tempString;
 	}
 }
