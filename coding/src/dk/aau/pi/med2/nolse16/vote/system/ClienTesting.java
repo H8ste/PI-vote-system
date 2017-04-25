@@ -12,8 +12,11 @@ public class ClienTesting {
 			Socket clientSocket = new Socket("localhost", 4445);
 			DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 			
+			String tempInCheck;
+			
 
 			sentence = inFromUser.readLine();
+			
 			
 //			LoadPolls
 			if (sentence.equals("loadPolls")) {
@@ -27,7 +30,7 @@ public class ClienTesting {
 				System.out.println("reaches here");
 			}
 //			Create Poll
-			if (sentence.equals("createPoll")) {
+			else if (sentence.equals("createPoll")) {
 				//sends to server with outToServer outputstream - sentence replaced with whatevs
 				outToServer.writeBytes(sentence + '\n');
 				//waits and read input from, maybe not necessary in all cases
@@ -38,7 +41,7 @@ public class ClienTesting {
 				System.out.println("reaches here");
 			}
 //			Get Results
-			if ((sentence.substring(0,11)).equals("get results")) {
+			else if ((tempInCheck = sentence.substring(0,11)).equals("get results")) {
 				//sends to server with outToServer outputstream - sentence replaced with whatevs
 				System.out.println("get results + some shit is sent to server");
 				outToServer.writeBytes(sentence + '\n');

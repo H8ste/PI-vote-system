@@ -5,6 +5,7 @@ import java.io.*;
 
 public class VotingServerThread extends Thread {
 	private Socket socket = null;
+	private String tempInCheck;
 
 	public VotingServerThread(Socket socket) {
 		super("MultiVotingServerThread");
@@ -35,7 +36,7 @@ public class VotingServerThread extends Thread {
 					}
 
 					// Create Polls
-					if (inputLine.substring(0, 7).equals("newPoll")) {
+					else if (inputLine.substring(0, 7).equals("newPoll")) {
 						String pollData = inputLine.substring(8);
 						savePolls(pollData);
 						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
@@ -48,16 +49,11 @@ public class VotingServerThread extends Thread {
 					}
 
 					// Get results
-					if (inputLine.substring(0,11).equals("get results")) {
-						System.out.println("get results + some shit arrived to server");
+					else if ((tempInCheck = inputLine.substring(0,11)).equals("get results")) {				
 						String tempString = loadSpecificPoll(Integer.parseInt(inputLine.substring(12)));
-						
+						System.out.println("This is what is sent to the client:" + tempString);
 						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
-						// PrintWriter out = new
-						// PrintWriter(socket.getOutputStream(), true);
-						outToClient.writeBytes("This is what is sent from the server kappa" + "\n");
-						System.out.println(outToClient);
-						// out.writeBytes("sending from server");
+						outToClient.writeBytes(tempString + "\n");
 						System.out.println("sent from server now");
 					}
 				}
@@ -71,7 +67,7 @@ public class VotingServerThread extends Thread {
 		String[] tempStringArray = PollClass.loadStrings("./polls.txt");
 		String tempString = "";
 
-		for (int i = 0; i < tempStringArray.length; i++) {
+		for (int i = 1; i < tempStringArray.length; i++) {
 			if (i == tempStringArray.length - 1) {
 				tempString += tempStringArray[i] + "\n";
 			} else {
@@ -86,15 +82,11 @@ public class VotingServerThread extends Thread {
 		
 		for (int i = 0; i < tempStringArray.length; i++) {
 			if (i == specifiedPoll) {
-				
-			}
-			if (i == tempStringArray.length - 1) {
-				tempString += tempStringArray[i] + "\n";
-			} else {
-				tempString += tempStringArray[i] + ";";
+				tempString = tempStringArray[i+1];
+				System.out.println("found poll " + specifiedPoll);
 			}
 		}
-		return null;
+		return tempString;
 	}
 	public void savePolls(String string) {
 		try(  PrintWriter out = new PrintWriter( "./polls.txt" )  ){
