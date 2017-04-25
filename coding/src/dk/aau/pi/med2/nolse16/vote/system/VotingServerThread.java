@@ -35,11 +35,13 @@ public class VotingServerThread extends Thread {
 					}
 
 					// Create Polls
-					if (inputLine.equals("test")) {
+					if (inputLine.substring(0, 7).equals("newPoll")) {
+						String pollData = inputLine.substring(8);
+						
 						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
 						// PrintWriter out = new
 						// PrintWriter(socket.getOutputStream(), true);
-						outToClient.writeBytes("This is what is sent from the server kappa" + "\n");
+						outToClient.writeBytes("Poll saved" + "\n");
 						System.out.println(outToClient);
 						// out.writeBytes("sending from server");
 						System.out.println("sent from server now");
