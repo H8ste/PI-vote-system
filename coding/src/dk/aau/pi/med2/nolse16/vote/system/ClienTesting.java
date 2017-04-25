@@ -30,7 +30,7 @@ public class ClienTesting {
 				System.out.println("reaches here");
 			}
 //			Create Poll
-			else if (sentence.equals("createPoll")) {
+			else if (sentence.substring(0, 7).equals("newPoll")) {
 				//sends to server with outToServer outputstream - sentence replaced with whatevs
 				outToServer.writeBytes(sentence + '\n');
 				//waits and read input from, maybe not necessary in all cases

@@ -1,3 +1,3 @@
-votesOne,votesTwo,description,buttonDescriptionOne,buttonDescriptionTwo
-152,27,Does Nicklas Smell like poopie?,yes,no
-50,50,which color is prettier?,blue,red
+0,0,yes or no?,yes,no
+testing
+testing 2

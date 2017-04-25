@@ -89,11 +89,15 @@ public class VotingServerThread extends Thread {
 		return tempString;
 	}
 	public void savePolls(String string) {
-		try(  PrintWriter out = new PrintWriter( "./polls.txt" )  ){
-		    out.println(string);
-		}
-		catch(FileNotFoundException e){
-			e.printStackTrace();
-		}
+		try(FileWriter fw = new FileWriter("polls.txt", true);
+			    BufferedWriter bw = new BufferedWriter(fw);
+			    PrintWriter out = new PrintWriter(bw))
+			{
+			
+			    out.println(string);
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}
+
 	}
 }
