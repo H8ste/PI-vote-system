@@ -37,7 +37,7 @@ public class VotingServerThread extends Thread {
 					// Create Polls
 					if (inputLine.substring(0, 7).equals("newPoll")) {
 						String pollData = inputLine.substring(8);
-						
+						savePolls(pollData);
 						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
 						// PrintWriter out = new
 						// PrintWriter(socket.getOutputStream(), true);
@@ -96,7 +96,12 @@ public class VotingServerThread extends Thread {
 		}
 		return null;
 	}
-	public void savePolls() {
-		
+	public void savePolls(String string) {
+		try(  PrintWriter out = new PrintWriter( "./polls.txt" )  ){
+		    out.println(string);
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
 	}
 }
