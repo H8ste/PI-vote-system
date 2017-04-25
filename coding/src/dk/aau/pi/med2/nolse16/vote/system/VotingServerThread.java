@@ -78,4 +78,11 @@ public class VotingServerThread extends Thread {
 		}
 		return tempString;
 	}
+	public String loadSpecificPoll(){
+		
+		return null;
+	}
+	public void savePolls() {
+		
+	}
 }
