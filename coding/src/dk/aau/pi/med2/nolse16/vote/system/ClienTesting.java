@@ -14,10 +14,36 @@ public class ClienTesting {
 			
 
 			sentence = inFromUser.readLine();
-			if (sentence.equals("test")) {
+			
+//			LoadPolls
+			if (sentence.equals("loadPolls")) {
+				//sends to server with outToServer outputstream - sentence replaced with whatevs
 				outToServer.writeBytes(sentence + '\n');
+				//waits and read input from, maybe not necessary in all cases
 				BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-				System.out.println("readline is the issue");
+				//modified sentence == results from server
+				modifiedSentence = inFromServer.readLine();
+				System.out.println(modifiedSentence);
+				System.out.println("reaches here");
+			}
+//			Create Poll
+			if (sentence.equals("createPoll")) {
+				//sends to server with outToServer outputstream - sentence replaced with whatevs
+				outToServer.writeBytes(sentence + '\n');
+				//waits and read input from, maybe not necessary in all cases
+				BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				//modified sentence == results from server
+				modifiedSentence = inFromServer.readLine();
+				System.out.println(modifiedSentence);	
+				System.out.println("reaches here");
+			}
+//			Get Results
+			if (sentence.equals("test")) {
+				//sends to server with outToServer outputstream - sentence replaced with whatevs
+				outToServer.writeBytes(sentence + '\n');
+				//waits and read input from, maybe not necessary in all cases
+				BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				//modified sentence == results from server
 				modifiedSentence = inFromServer.readLine();
 				System.out.println(modifiedSentence);	
 				System.out.println("reaches here");

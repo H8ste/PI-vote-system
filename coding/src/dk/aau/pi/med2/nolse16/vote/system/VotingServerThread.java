@@ -13,21 +13,54 @@ public class VotingServerThread extends Thread {
 
 	public void run() {
 		while (true) {
-			// System.out.println("it's running this thread yup yup");
 			try {
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//				System.out.println("Reading request from client now. Give me a second");
-//				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-
 				String inputLine;
 				if ((inputLine = in.readLine()) != null) {
 					System.out.println(inputLine);
-					if (inputLine.equals("test")){
+					
+					// Load Polls
+					if (inputLine.equals("loadPolls")) {
+						String[] tempStringArray = PollClass.loadStrings("./polls.txt");
+						String tempString = "";
+						
+						for (int i = 0; i < tempStringArray.length; i++) {
+							if (i == tempStringArray.length - 1) {
+								tempString += tempStringArray[i] + "\n";
+							} else {
+								tempString += tempStringArray[i] + ";";
+							}
+						}
+
+//						ByteArrayOutputStream outToClient = new ByteArrayOutputStream(socket.getOutputStream());
+						 DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
+						// PrintWriter out = new
+						// PrintWriter(socket.getOutputStream(), true);
+						outToClient.writeBytes(tempString + "\n");
+						System.out.println(outToClient);
+						// out.writeBytes("sending from server");
+						System.out.println("sent from server now");
+					}
+					
+					// Create Polls
+					if (inputLine.equals("test")) {
 						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
-//						PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+						// PrintWriter out = new
+						// PrintWriter(socket.getOutputStream(), true);
 						outToClient.writeBytes("This is what is sent from the server kappa" + "\n");
 						System.out.println(outToClient);
-//						out.writeBytes("sending from server");
+						// out.writeBytes("sending from server");
+						System.out.println("sent from server now");
+					}
+					
+					//Get results
+					if (inputLine.equals("test")) {
+						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
+						// PrintWriter out = new
+						// PrintWriter(socket.getOutputStream(), true);
+						outToClient.writeBytes("This is what is sent from the server kappa" + "\n");
+						System.out.println(outToClient);
+						// out.writeBytes("sending from server");
 						System.out.println("sent from server now");
 					}
 				}
@@ -36,7 +69,8 @@ public class VotingServerThread extends Thread {
 			}
 		}
 	}
+
 	public void loadPolls() {
-		
+
 	}
 }
