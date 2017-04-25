@@ -50,7 +50,7 @@ public class VotingServerThread extends Thread {
 					// Get results
 					if (inputLine.substring(0,11).equals("get results")) {
 						System.out.println("get results + some shit arrived to server");
-						String tempString = loadPolls();
+						String tempString = loadSpecificPoll(Integer.parseInt(inputLine.substring(12)));
 						
 						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
 						// PrintWriter out = new
@@ -80,8 +80,20 @@ public class VotingServerThread extends Thread {
 		}
 		return tempString;
 	}
-	public String loadSpecificPoll(){
+	public String loadSpecificPoll(int specifiedPoll){
+		String[] tempStringArray = PollClass.loadStrings("./polls.txt");
+		String tempString = "";
 		
+		for (int i = 0; i < tempStringArray.length; i++) {
+			if (i == specifiedPoll) {
+				
+			}
+			if (i == tempStringArray.length - 1) {
+				tempString += tempStringArray[i] + "\n";
+			} else {
+				tempString += tempStringArray[i] + ";";
+			}
+		}
 		return null;
 	}
 	public void savePolls() {
