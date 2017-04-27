@@ -17,7 +17,7 @@ public class MainMenu extends AppCompatActivity {
     }
 
     //Called when the user touches button "View polls"
-    public void ViewPolls(View view) {
+    public void viewPolls(View view) {
         //Goes to class called ViewPolls
         Intent i = new Intent(MainMenu.this, ViewPolls.class);
         startActivity(i);

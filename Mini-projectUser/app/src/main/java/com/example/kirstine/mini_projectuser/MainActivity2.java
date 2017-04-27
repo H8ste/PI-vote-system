@@ -32,7 +32,7 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.content_viewpolls);
 
 //        populateListView();
 //        registerClickCallback();
@@ -44,26 +44,26 @@ public class MainActivity2 extends AppCompatActivity {
     //Called when the user touches button "View polls"
     public void message4(View view) {
         //Does something in response to the button click
-        Intent i = new Intent(MainActivity2.this, MainActivity.class);
+        Intent i = new Intent(MainActivity2.this, MainMenu.class);
         startActivity(i);
     }
 
-    private void populateListView() {
-        //Create list of items
-        String[] myItems = {"Blue", "Green", "Purple", "Red"};
-
-
-        //Build Adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this,                   // Context for the activity.
-                R.layout.da_items,      //Layout to use (create)
-                myItems);               //Items to be displayed
+//    private void populateListView() {
+//        //Create list of items
+//        String[] myItems = {"Blue", "Green", "Purple", "Red"};
+//
+//
+//        //Build Adapter
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+//                this,                   // Context for the activity.
+//                R.layout.da_items,      //Layout to use (create)
+//                myItems);               //Items to be displayed
 
 //
 //        // Configure the list view
 //        ListView list = (ListView) findViewById(R.id.ListViewMain);
 //        list.setAdapter(adapter);
-    }
+//    }
 
 //    private void registerClickCallback() {
 //        ListView list = (ListView) findViewById(R.id.ListViewMain);
