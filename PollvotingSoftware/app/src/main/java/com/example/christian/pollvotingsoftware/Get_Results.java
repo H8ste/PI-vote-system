@@ -32,13 +32,13 @@ public class Get_Results extends AppCompatActivity {
     float votes2 = Float.parseFloat(parts[1]);
     String description = parts[2];
     String option1 = parts[3];
-    String opstion2 = parts[4];
+    String option2 = parts[4];
 
     public Button backtooverview;
 
 
     float[] allvotes = {votes1,votes2};
-    String[] options = {option1, opstion2};
+    String[] options = {option1, option2};
     public PieChart pieChart;
 
     protected void onCreate(Bundle savedInstanceState) {
