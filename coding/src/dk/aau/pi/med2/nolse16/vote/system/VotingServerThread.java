@@ -1,6 +1,11 @@
 package dk.aau.pi.med2.nolse16.vote.system;
 
 import java.net.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.*;
 
 public class VotingServerThread extends Thread {
@@ -56,6 +61,32 @@ public class VotingServerThread extends Thread {
 						outToClient.writeBytes(tempString + "\n");
 						System.out.println("sent from server now");
 					}
+					if (inputLine.substring(0,8).equals("votePoll")) {
+						String newVotes = inputLine.substring(9);
+						String[] allOldPolls = PollClass.loadStrings("./polls.txt");
+						int tempElement = Integer.parseInt(inputLine.substring(9,9));
+						allOldPolls[tempElement] = newVotes;
+						savePolls(allOldPolls);
+//						
+//						String oldVotes = 
+//						Path path = Paths.get("./polls.txt");
+//						Charset charset = StandardCharsets.UTF_8;
+//
+//						String content = new String(Files.readAllBytes(path), charset);
+//						content = content.replaceAll(oldVotes, newVotes);
+//						Files.write(path, content.getBytes(charset));
+//
+//						// ByteArrayOutputStream outToClient = new
+//						// ByteArrayOutputStream(socket.getOutputStream());
+//						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
+//						// PrintWriter out = new
+//						// PrintWriter(socket.getOutputStream(), true);
+//						outToClient.writeBytes(tempString + "\n");
+//						System.out.println(outToClient);
+//						// out.writeBytes("sending from server");
+//						System.out.println("sent from server now");
+					}
+
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -100,4 +131,15 @@ public class VotingServerThread extends Thread {
 			}
 
 	}
+	public void savePolls(String[] polls){
+		StringBuilder builder = new StringBuilder();
+		for(String string : polls) {
+		    builder.append(string);
+		}
+//		builder.toString();
+//		return builder.toString();
+//		String string;
+		savePolls(builder.toString());
+	}
+	
 }

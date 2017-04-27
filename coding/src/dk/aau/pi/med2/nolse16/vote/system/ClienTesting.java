@@ -53,6 +53,16 @@ public class ClienTesting {
 
 //				System.out.println("reaches here");
 			}
+			else if ((tempInCheck = sentence.substring(0,8)).equals("votePoll")) {
+				//sends to server with outToServer outputstream - sentence replaced with whatevs
+				System.out.println("get results + some shit is sent to server");
+				outToServer.writeBytes(sentence + '\n');
+				//waits and read input from, maybe not necessary in all cases
+				BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				//modified sentence == results from server
+				modifiedSentence = inFromServer.readLine();
+				System.out.println(modifiedSentence);	
+			}
 //			outToServer.writeBytes(sentence + '\n');
 			// modifiedSentence = inFromServer.readLine();
 			// System.out.println("FROM SERVER: " + modifiedSentence);
@@ -60,3 +70,4 @@ public class ClienTesting {
 		}
 	}
 }
+	
