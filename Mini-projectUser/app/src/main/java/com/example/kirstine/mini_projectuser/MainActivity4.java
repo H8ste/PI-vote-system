@@ -15,9 +15,9 @@ public class MainActivity4 extends AppCompatActivity {
         setContentView(R.layout.content_view_results);
     }
     //Called when the user touches button "View polls"
-    public void message4 (View view) {
+    public void message6 (View view) {
         //Does something in response to the button click
-        Intent i = new Intent(MainActivity2.this, MainActivity.class);
+        Intent i = new Intent(MainActivity4.this, MainActivity.class);
         startActivity(i);
     }
 }
