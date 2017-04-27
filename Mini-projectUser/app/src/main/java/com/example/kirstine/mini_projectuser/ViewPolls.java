@@ -3,20 +3,19 @@ package com.example.kirstine.mini_projectuser;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import static android.R.attr.x;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import static com.example.kirstine.mini_projectuser.MainMenu.clientSocket;
 
 /**
  * Created by Kirstine on 27-04-2017.
@@ -28,25 +27,24 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 //List view: {views: da_items.xml}
 
-
-public class MainActivity2 extends AppCompatActivity {
+public class ViewPolls extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_viewpolls);
 
-        init();
 
+        init();
     }
 
-    //Called when the user touches button "View polls"
-    public void message4(View view) {
-        //Does something in response to the button click
-        Intent i = new Intent(MainActivity2.this, MainMenu.class);
+    //Called when the user touches button "back"
+    public void back3(View view) {
+        //Goes back to the Menu
+        Intent i = new Intent(ViewPolls.this, MainMenu.class);
         startActivity(i);
     }
 
     public void init() {
-        String[] pollsFromServer = loadFromServer();
+        pollsFromServer();
 
         TableLayout ll = (TableLayout) findViewById(R.id.displayLinear);
         for (int i = 0; i < 20; i++) {
@@ -55,7 +53,7 @@ public class MainActivity2 extends AppCompatActivity {
                 TableRow.LayoutParams pl = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                 desc.setLayoutParams(pl);
                 TextView description = new TextView(this);
-                description.setText("NEWTESTING");
+                description.setText("NEW TESTING");
                 desc.addView(description);
                 ll.addView(desc, i);
             } else {
@@ -71,7 +69,26 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
-    public String[] loadFromServer() {
+    public String[] pollsFromServer(){
+        try{
+            String sentence = "loadPolls";
+            String modifiedSentence;
+            DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+            outToServer.writeBytes(sentence + "\n");
+            Log.d("SENT", "Message is sent to server");
+
+            //waits and read input from server
+            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            Log.d("From server", "received shit from server");
+            //modified sentence == results from server
+            modifiedSentence = inFromServer.readLine();
+            Log.d("From server", modifiedSentence);
+            clientSocket.close();
+            outToServer.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
         return null;
     }
 }

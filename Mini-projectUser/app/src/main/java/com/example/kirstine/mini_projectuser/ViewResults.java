@@ -9,15 +9,15 @@ import android.view.View;
  * Created by Kirstine on 27-04-2017.
  */
 
-public class MainActivity4 extends AppCompatActivity {
+public class ViewResults extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_view_results);
     }
-    //Called when the user touches button "View polls"
-    public void message6 (View view) {
-        //Does something in response to the button click
-        Intent i = new Intent(MainActivity4.this, MainActivity.class);
+    //Called when the user touches button "back"
+    public void back2 (View view) {
+        //Goes back to the Menu
+        Intent i = new Intent(ViewResults.this, MainMenu.class);
         startActivity(i);
     }
 }
