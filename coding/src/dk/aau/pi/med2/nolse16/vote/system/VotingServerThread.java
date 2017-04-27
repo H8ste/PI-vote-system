@@ -54,37 +54,40 @@ public class VotingServerThread extends Thread {
 					}
 
 					// Get results
-					else if ((tempInCheck = inputLine.substring(0,11)).equals("get results")) {				
+					else if ((tempInCheck = inputLine.substring(0, 11)).equals("get results")) {
 						String tempString = loadSpecificPoll(Integer.parseInt(inputLine.substring(12)));
 						System.out.println("This is what is sent to the client:" + tempString);
 						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
 						outToClient.writeBytes(tempString + "\n");
 						System.out.println("sent from server now");
 					}
-					if (inputLine.substring(0,8).equals("votePoll")) {
+					if (inputLine.substring(0, 8).equals("votePoll")) {
 						String newVotes = inputLine.substring(9);
 						String[] allOldPolls = PollClass.loadStrings("./polls.txt");
-						int tempElement = Integer.parseInt(inputLine.substring(9,9));
+						System.out.println(allOldPolls.length);
+						int tempElement = Integer.parseInt(inputLine.substring(9, 10));
 						allOldPolls[tempElement] = newVotes;
 						savePolls(allOldPolls);
-//						
-//						String oldVotes = 
-//						Path path = Paths.get("./polls.txt");
-//						Charset charset = StandardCharsets.UTF_8;
-//
-//						String content = new String(Files.readAllBytes(path), charset);
-//						content = content.replaceAll(oldVotes, newVotes);
-//						Files.write(path, content.getBytes(charset));
-//
-//						// ByteArrayOutputStream outToClient = new
-//						// ByteArrayOutputStream(socket.getOutputStream());
-//						DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream());
-//						// PrintWriter out = new
-//						// PrintWriter(socket.getOutputStream(), true);
-//						outToClient.writeBytes(tempString + "\n");
-//						System.out.println(outToClient);
-//						// out.writeBytes("sending from server");
-//						System.out.println("sent from server now");
+						//
+						// String oldVotes =
+						// Path path = Paths.get("./polls.txt");
+						// Charset charset = StandardCharsets.UTF_8;
+						//
+						// String content = new String(Files.readAllBytes(path),
+						// charset);
+						// content = content.replaceAll(oldVotes, newVotes);
+						// Files.write(path, content.getBytes(charset));
+						//
+						// // ByteArrayOutputStream outToClient = new
+						// // ByteArrayOutputStream(socket.getOutputStream());
+						// DataOutputStream outToClient = new
+						// DataOutputStream(socket.getOutputStream());
+						// // PrintWriter out = new
+						// // PrintWriter(socket.getOutputStream(), true);
+						// outToClient.writeBytes(tempString + "\n");
+						// System.out.println(outToClient);
+						// // out.writeBytes("sending from server");
+						// System.out.println("sent from server now");
 					}
 
 				}
@@ -107,39 +110,56 @@ public class VotingServerThread extends Thread {
 		}
 		return tempString;
 	}
-	public String loadSpecificPoll(int specifiedPoll){
+
+	public String loadSpecificPoll(int specifiedPoll) {
 		String[] tempStringArray = PollClass.loadStrings("./polls.txt");
 		String tempString = "";
-		
+
 		for (int i = 0; i < tempStringArray.length; i++) {
 			if (i == specifiedPoll) {
-				tempString = tempStringArray[i+1];
+				tempString = tempStringArray[i + 1];
 				System.out.println("found poll " + specifiedPoll);
 			}
 		}
 		return tempString;
 	}
+
 	public void savePolls(String string) {
-		try(FileWriter fw = new FileWriter("polls.txt", true);
-			    BufferedWriter bw = new BufferedWriter(fw);
-			    PrintWriter out = new PrintWriter(bw))
-			{
-			
-			    out.println(string);
-			} catch (IOException e) {
-			    e.printStackTrace();
-			}
+		try (FileWriter fw = new FileWriter("polls.txt", true);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter out = new PrintWriter(bw)) {
+
+			out.println(string);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
-	public void savePolls(String[] polls){
-		StringBuilder builder = new StringBuilder();
-		for(String string : polls) {
-		    builder.append(string);
+
+	public void savePolls(String[] polls) {
+		// StringBuilder builder = new StringBuilder();
+		// for (String string : polls) {
+		// builder.append(string);
+		// }
+
+		// builder.toString();
+		// return builder.toString();
+		String string = null;
+		try (FileWriter fw = new FileWriter("polls.txt", false);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter out = new PrintWriter(bw)) {
+			for (int i = 0; i < polls.length; i++) {
+				string = polls[i];
+				if (i == polls.length - 1) {
+					out.print(string);
+				} else {
+					out.println(string);
+				}
+			}
+			// out.println(string);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-//		builder.toString();
-//		return builder.toString();
-//		String string;
-		savePolls(builder.toString());
 	}
-	
+
 }

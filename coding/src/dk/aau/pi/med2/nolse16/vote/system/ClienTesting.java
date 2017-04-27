@@ -58,10 +58,10 @@ public class ClienTesting {
 				System.out.println("get results + some shit is sent to server");
 				outToServer.writeBytes(sentence + '\n');
 				//waits and read input from, maybe not necessary in all cases
-				BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+//				BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				//modified sentence == results from server
-				modifiedSentence = inFromServer.readLine();
-				System.out.println(modifiedSentence);	
+//				modifiedSentence = inFromServer.readLine();
+//				System.out.println(modifiedSentence);	
 			}
 //			outToServer.writeBytes(sentence + '\n');
 			// modifiedSentence = inFromServer.readLine();
