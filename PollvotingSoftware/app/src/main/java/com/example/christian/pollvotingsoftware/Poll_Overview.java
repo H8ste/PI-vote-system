@@ -21,8 +21,6 @@ public class Poll_Overview extends AppCompatActivity {
     }
 
     public void init() {
-        pollsFromServer();
-
         TableLayout ll = (TableLayout) findViewById(R.id.displayLinear);
         for (int i = 0; i < 20; i++) {
             if (i % 2 == 0) {
