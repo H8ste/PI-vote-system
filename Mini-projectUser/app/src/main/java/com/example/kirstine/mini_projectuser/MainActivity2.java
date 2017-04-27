@@ -1,5 +1,6 @@
 package com.example.kirstine.mini_projectuser;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,6 +29,13 @@ public class MainActivity2 extends AppCompatActivity {
         populateListView();
         registerClickCallback();
 
+    }
+
+    //Called when the user touches button "View polls"
+    public void message4 (View view) {
+        //Does something in response to the button click
+        Intent i = new Intent(MainActivity2.this, MainActivity.class);
+        startActivity(i);
     }
 
     private void populateListView() {
