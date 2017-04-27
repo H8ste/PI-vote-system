@@ -36,7 +36,10 @@ public class MakePoll extends AppCompatActivity {
 
     //Called when the user touches button "save"
     public void save (View view) {
-        String toServer = "createpoll" + ",0" + ",0" + "," + questionbutton.getText()+ "," + optionOne.getText() + optionTwo.getText();
+        String question = questionbutton.getText().toString();
+        String one = optionOne.getText().toString();
+        String two = optionTwo.getText().toString();
+        String toServer = "createpoll" + ",0" + ",0" + "," + question + "," + one + two;
         Log.d("savetest",toServer);
     }
 
