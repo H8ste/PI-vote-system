@@ -26,6 +26,15 @@
             android:name=".Poll_Overview"
             android:label="PollvotingSoftware">
         </activity>
+        <activity
+            android:name=".Create_Poll"
+            android:label="PollvotingSoftware">
+        </activity>
+        <activity
+            android:name=".Get_Results"
+            android:label="PollvotingSoftware">
+        </activity>
+
 
     </application>
 
