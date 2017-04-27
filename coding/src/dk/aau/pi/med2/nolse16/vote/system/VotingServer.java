@@ -18,6 +18,7 @@ public class VotingServer {
 
 		while (listening) {
 			new VotingServerThread(serverSocket.accept()).start();
+			System.out.println("Client accepted");
 		}
 		serverSocket.close();
 	}
