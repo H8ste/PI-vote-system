@@ -34,9 +34,6 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_viewpolls);
 
-//        populateListView();
-//        registerClickCallback();
-
         init();
 
     }
@@ -48,41 +45,7 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(i);
     }
 
-//    private void populateListView() {
-//        //Create list of items
-//        String[] myItems = {"Blue", "Green", "Purple", "Red"};
-//
-//
-//        //Build Adapter
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-//                this,                   // Context for the activity.
-//                R.layout.da_items,      //Layout to use (create)
-//                myItems);               //Items to be displayed
-
-//
-//        // Configure the list view
-//        ListView list = (ListView) findViewById(R.id.ListViewMain);
-//        list.setAdapter(adapter);
-//    }
-
-//    private void registerClickCallback() {
-//        ListView list = (ListView) findViewById(R.id.ListViewMain);
-//        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-//                TextView textView = (TextView) viewClicked;
-//                String message = "You Clicked # " + position + ", which is string:" + textView.getText().toString();
-//                Toast.makeText(MainActivity2.this, message, Toast.LENGTH_LONG).show();
-//            }
-//
-//        });
-//
-//    }
-
-
     public void init() {
-
         TableLayout ll = (TableLayout) findViewById(R.id.displayLinear);
         for (int i = 0; i < 20; i++) {
             if (i % 2 == 0) {
@@ -103,27 +66,6 @@ public class MainActivity2 extends AppCompatActivity {
                 row.addView(button2);
                 ll.addView(row,i);
             }
-
-//            TableRow row = new TableRow(this);
-//            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-//            row.setLayoutParams(lp);
-//            Button button = new Button(this);
-//            Button button2 = new Button(this);
-//            checkBox = new CheckBox(this);
-//            tv = new TextView(this);
-//            addBtn = new ImageButton(this);
-//            addBtn.setImageResource(R.drawable.add);
-//            minusBtn = new ImageButton(this);
-//            minusBtn.setImageResource(R.drawable.minus);
-//            qty = new TextView(this);
-//            checkBox.setText("hello");
-//            qty.setText("10");
-//            row.addView(button);
-//            row.addView(button2);
-//            row.addView(qty);
-//            row.addView(addBtn);
-//            ll.addView(desc, i);
-//            ll.addView(row, i);
         }
     }
 }
