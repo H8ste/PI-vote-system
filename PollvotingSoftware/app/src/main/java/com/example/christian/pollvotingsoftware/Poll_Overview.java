@@ -16,7 +16,7 @@ public class Poll_Overview extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cont_polls_overview);
-        
+
         init();
     }
 
