@@ -46,6 +46,8 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void init() {
+        String[] pollsFromServer = loadFromServer();
+
         TableLayout ll = (TableLayout) findViewById(R.id.displayLinear);
         for (int i = 0; i < 20; i++) {
             if (i % 2 == 0) {
@@ -53,10 +55,10 @@ public class MainActivity2 extends AppCompatActivity {
                 TableRow.LayoutParams pl = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                 desc.setLayoutParams(pl);
                 TextView description = new TextView(this);
-                description.setText("TESTING");
+                description.setText("NEWTESTING");
                 desc.addView(description);
-                ll.addView(desc,i);
-            } else{
+                ll.addView(desc, i);
+            } else {
                 TableRow row = new TableRow(this);
                 TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                 row.setLayoutParams(lp);
@@ -64,8 +66,12 @@ public class MainActivity2 extends AppCompatActivity {
                 Button button2 = new Button(this);
                 row.addView(button);
                 row.addView(button2);
-                ll.addView(row,i);
+                ll.addView(row, i);
             }
         }
+    }
+
+    public String[] loadFromServer() {
+        return null;
     }
 }

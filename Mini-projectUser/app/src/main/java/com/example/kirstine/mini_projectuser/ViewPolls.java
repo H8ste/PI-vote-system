@@ -3,11 +3,19 @@ package com.example.kirstine.mini_projectuser;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import static com.example.kirstine.mini_projectuser.MainMenu.clientSocket;
 
 /**
  * Created by Kirstine on 27-04-2017.
@@ -19,17 +27,13 @@ import android.widget.TextView;
 
 //List view: {views: da_items.xml}
 
-
 public class ViewPolls extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_viewpolls);
 
+
         init();
-
-//        populateListView();
-//        registerClickCallback();
-
     }
 
     //Called when the user touches button "back"
@@ -39,39 +43,9 @@ public class ViewPolls extends AppCompatActivity {
         startActivity(i);
     }
 
-//    private void populateListView() {
-//        //Create list of items
-//        String[] myItems = {"Blue", "Green", "Purple", "Red"};
-//
-//
-//        //Build Adapter
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-//                this,                   // Context for the activity.
-//                R.layout.da_items,      //Layout to use (create)
-//                myItems);               //Items to be displayed
-//
-//
-//        // Configure the list view
-////        ListView list = (ListView) findViewById(R.id.ListViewMain);
-////        list.setAdapter(adapter);
-//    }
-
-//    private void registerClickCallback() {
-//        ListView list = (ListView) findViewById(R.id.ListViewMain);
-//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-//                TextView textView = (TextView) viewClicked;
-//                String message = "You Clicked # " + position + ", which is string:" + textView.getText().toString();
-//                Toast.makeText(ViewPolls.this, message, Toast.LENGTH_LONG).show();
-//            }
-//
-//        });
-//
-//    }
-
     public void init() {
+        pollsFromServer();
+
         TableLayout ll = (TableLayout) findViewById(R.id.displayLinear);
         for (int i = 0; i < 20; i++) {
             if (i % 2 == 0) {
@@ -79,7 +53,7 @@ public class ViewPolls extends AppCompatActivity {
                 TableRow.LayoutParams pl = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                 desc.setLayoutParams(pl);
                 TextView description = new TextView(this);
-                description.setText("TESTING");
+                description.setText("NEW TESTING");
                 desc.addView(description);
                 ll.addView(desc, i);
             } else {
@@ -93,5 +67,28 @@ public class ViewPolls extends AppCompatActivity {
                 ll.addView(row, i);
             }
         }
+    }
+
+    public String[] pollsFromServer(){
+        try{
+            String sentence = "loadPolls";
+            String modifiedSentence;
+            DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+            outToServer.writeBytes(sentence + "\n");
+            Log.d("SENT", "Message is sent to server");
+
+            //waits and read input from server
+            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            Log.d("From server", "received shit from server");
+            //modified sentence == results from server
+            modifiedSentence = inFromServer.readLine();
+            Log.d("From server", modifiedSentence);
+            clientSocket.close();
+            outToServer.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
