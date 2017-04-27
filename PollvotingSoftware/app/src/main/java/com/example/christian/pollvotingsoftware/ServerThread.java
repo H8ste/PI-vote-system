@@ -43,6 +43,7 @@ public class ServerThread implements Runnable {
                 if (Main_Menu.messageToServer.equals("loadPolls")) {
                     //sends to server with outToServer outputstream - sentence replaced with whatevs
                     outToServer.writeBytes(Main_Menu.messageToServer + '\n');
+                    Main_Menu.messageToServer="";
                     //waits and read input from, maybe not necessary in all cases
                     BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     //modified sentence == results from server

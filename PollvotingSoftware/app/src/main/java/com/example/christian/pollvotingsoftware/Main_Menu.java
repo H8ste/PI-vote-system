@@ -24,6 +24,7 @@ import static java.net.InetAddress.getByName;
 public class Main_Menu extends AppCompatActivity {
     public Button connect;
     public static String messageToServer;
+    public static String messageFromServer;
 
 
     @Override
@@ -37,9 +38,9 @@ public class Main_Menu extends AppCompatActivity {
     }
 
     public void connectToServer(View view) {
-        ServerThread serverThread = new ServerThread();
-        Thread serverConnection = new Thread(serverThread);
-        serverConnection.start();
+//        ServerThread serverThread = new ServerThread();
+//        Thread serverConnection = new Thread(serverThread);
+//        serverConnection.start();
 //        try {
 //            InetAddress IP = InetAddress.getByName("10.0.2.2");
 //            Socket clientSocket = new Socket(IP, 4445);
@@ -51,45 +52,45 @@ public class Main_Menu extends AppCompatActivity {
 //        serverThread.
 
 
-//        Thread thread = new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    try {
+                        InetAddress IP = InetAddress.getByName("10.0.2.2");
+                        Socket clientSocket = new Socket(IP, 4445);
+                        Log.d("Servertesting", "creates socket");
+                        DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+                        Log.d("Servertesting", "establishes outputstream");
+                        outToServer.writeBytes(messageToServer + "\n");
+                        Log.d("SENT", "Message is sent to server");
 //
-//            @Override
-//            public void run() {
-//                try {
-//                    try {
-//                        IP = InetAddress.getByName("10.0.2.2");
-//                        clientSocket = new Socket(IP, 4445);
-//                        Log.d("Servertesting", "creates socket");
-//                        outToServer = new DataOutputStream(clientSocket.getOutputStream());
-//                        Log.d("Servertesting", "establishes outputstream");
-////                        outToServer.writeBytes(sentence + "\n");
-////                        Log.d("SENT", "Message is sent to server");
-////
-////                        //waits and read input from, maybe not necessary in all cases
-////                        BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-////                        Log.d("From server", "received shit from server");
-////                        //modified sentence == results from server
-////                        modifiedSentence = inFromServer.readLine();
-////                        Log.d("From server", modifiedSentence);
-////                        clientSocket.close();
-////                        outToServer.close();
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    //Your code goes here
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread.start();
-//        try {
-//            thread.join();
-//            Log.d("finishthread", "thread ends");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+//                        //waits and read input from, maybe not necessary in all cases
+                        BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                        Log.d("From server", "received shit from server");
+                        //modified sentence == results from server
+                        messageFromServer = inFromServer.readLine();
+                        Log.d("From server", messageFromServer);
+                        clientSocket.close();
+                        outToServer.close();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //Your code goes here
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+            Log.d("finishthread", "thread ends");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
         //Goes to class called ViewPolls
