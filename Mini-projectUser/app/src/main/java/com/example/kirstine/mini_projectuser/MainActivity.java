@@ -1,72 +1,36 @@
 package com.example.kirstine.mini_projectuser;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-
-//Imports the needed widgets
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-
-//Array of options, which will run through an ArrayAdapter, that will show in the ListView
-//Array of options --> ArrayAdapter --> ListView
-
-//List view: {views: da_items.xml}
-
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-                populateListView();
-                registerClickCallback();
-
-        }
-
-        private void populateListView() {
-            //Create list of items
-            String[] myItems = {"Blue", "Green", "Purple", "Red"};
+        setContentView(R.layout.content_menu);
 
 
-            //Build Adapter
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    this,                   // Context for the activity.
-                    R.layout.da_items,      //Layout to use (create)
-                    myItems);               //Items to be displayed
-
-
-            // Configure the list view
-            ListView list = (ListView) findViewById(R.id.ListViewMain);
-            list.setAdapter(adapter);
     }
 
-        private void registerClickCallback() {
-        ListView list = (ListView) findViewById(R.id.ListViewMain);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-                TextView textView = (TextView) viewClicked;
-                String message = "You Clicked # " + position + ", which is string:" + textView.getText().toString();
-                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-            }
-
-        });
-
+    //Called when the user touches button "View polls"
+    public void message1(View view1) {
+        //Does something in response to the button click
+        Intent i = new Intent(MainActivity.this, MainActivity2.class);
+        startActivity(i);
     }
+
+    //Called when the user touches button "Make poll"
+    public void message2(View view2) {
+        //Does something in response to the button click
+        Intent i1 = new Intent(MainActivity.this, MainActivity3.class);
+        startActivity(i1);
     }
+}
+
 
 
 
