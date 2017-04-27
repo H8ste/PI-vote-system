@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,23 +17,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Called when the user touches button "View polls"
-    public void message1(View view) {
-        //Does something in response to the button click
-        Intent i = new Intent(MainActivity.this, MainActivity2.class);
+    public void ViewPolls(View view) {
+        //Goes to class called ViewPolls
+        Intent i = new Intent(MainMenu.this, ViewPolls.class);
         startActivity(i);
     }
 
     //Called when the user touches button "Make poll"
-    public void message2(View view) {
-        //Does something in response to the button click
-        Intent i1 = new Intent(MainActivity.this, MainActivity3.class);
+    public void makePoll(View view) {
+        //Goes to class called MakePoll
+        Intent i1 = new Intent(MainMenu.this, MakePoll.class);
         startActivity(i1);
     }
 
     //Called when the user touches button "View Results"
-    public void message3 (View view) {
-        //Does something in response to button click
-        Intent i2 = new Intent(MainActivity.this, MainActivity4.class);
+    public void viewResults (View view) {
+        //Goes to class called ViewResults
+        Intent i2 = new Intent(MainMenu.this, ViewResults.class);
         startActivity(i2);
     }
 }

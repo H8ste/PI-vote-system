@@ -21,20 +21,20 @@ import android.widget.Toast;
 //List view: {views: da_items.xml}
 
 
-public class MainActivity2 extends AppCompatActivity {
+public class ViewPolls extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.content_ViewPolls);
 
         populateListView();
         registerClickCallback();
 
     }
 
-    //Called when the user touches button "View polls"
-    public void message4 (View view) {
-        //Does something in response to the button click
-        Intent i = new Intent(MainActivity2.this, MainActivity.class);
+    //Called when the user touches button "back"
+    public void back3 (View view) {
+        //Goes back to the Menu
+        Intent i = new Intent(ViewPolls.this, MainMenu.class);
         startActivity(i);
     }
 
@@ -63,7 +63,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
                 TextView textView = (TextView) viewClicked;
                 String message = "You Clicked # " + position + ", which is string:" + textView.getText().toString();
-                Toast.makeText(MainActivity2.this, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(ViewPolls.this, message, Toast.LENGTH_LONG).show();
             }
 
         });
