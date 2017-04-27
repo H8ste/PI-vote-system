@@ -74,7 +74,7 @@ public class Main_Menu extends AppCompatActivity {
                         Log.d("From server", messageFromServer);
                         clientSocket.close();
                         outToServer.close();
-
+                        inFromServer.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
