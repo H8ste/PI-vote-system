@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Mini-projectUser.iml" filepath="$PROJECT_DIR$/Mini-projectUser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PollvotingSoftware.iml" filepath="$PROJECT_DIR$/PollvotingSoftware.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

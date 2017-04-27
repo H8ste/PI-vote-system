@@ -36,11 +36,13 @@ public class MakePoll extends AppCompatActivity {
 
     //Called when the user touches button "save"
     public void save (View view) {
-        String question = questionbutton.getText().toString();
-        String one = optionOne.getText().toString();
-        String two = optionTwo.getText().toString();
-        String toServer = "createpoll" + ",0" + ",0" + "," + question + "," + one + two;
-        Log.d("savetest",toServer);
+        questionbutton = (EditText) findViewById(R.id.question);
+        CharSequence question = questionbutton.getText();
+        CharSequence one = optionOne.getText().toString();
+        CharSequence two = optionTwo.getText().toString();
+        String questionString = question.toString();
+//        String toServer = "createpoll" + ",0" + ",0" + "," + question + "," + one + two;
+        Log.d("savetest",questionString);
     }
 
 }
