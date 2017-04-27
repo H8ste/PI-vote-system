@@ -12,76 +12,84 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class Main_Menu extends AppCompatActivity {
+import static java.net.InetAddress.getByName;
 
+public class Main_Menu extends AppCompatActivity {
     public Button connect;
-    public InetAddress IP;
-    public Socket clientSocket;
-    public DataOutputStream outToServer;
+    public static String messageToServer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__menu);
 
-        connect = (Button)  findViewById(R.id.connect);
+        connect = (Button) findViewById(R.id.connect);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        messageToServer = "loadPolls";
     }
+
     public void connectToServer(View view) {
-        Thread thread = new Thread(new Runnable() {
+        ServerThread serverThread = new ServerThread();
+        Thread serverConnection = new Thread(serverThread);
+        serverConnection.start();
+//        try {
+//            InetAddress IP = InetAddress.getByName("10.0.2.2");
+//            Socket clientSocket = new Socket(IP, 4445);
+//            Log.d("Servertesting", "creates socket");
+//        }catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-            @Override
-            public void run() {
-                try {
-                    try {
-                        IP = InetAddress.getByName("10.0.2.2");
-                        clientSocket = new Socket(IP, 4445);
-                        Log.d("Servertesting","creates socket");
-                        outToServer = new DataOutputStream(clientSocket.getOutputStream());
-                        Log.d("Servertesting","establishes outputstream");
-//                        outToServer.writeBytes(sentence + "\n");
-//                        Log.d("SENT", "Message is sent to server");
+//        serverThread.
+
+
+//        Thread thread = new Thread(new Runnable() {
 //
-//                        //waits and read input from, maybe not necessary in all cases
-//                        BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-//                        Log.d("From server", "received shit from server");
-//                        //modified sentence == results from server
-//                        modifiedSentence = inFromServer.readLine();
-//                        Log.d("From server", modifiedSentence);
-//                        clientSocket.close();
-//                        outToServer.close();
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //Your code goes here
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
+//            @Override
+//            public void run() {
+//                try {
+//                    try {
+//                        IP = InetAddress.getByName("10.0.2.2");
+//                        clientSocket = new Socket(IP, 4445);
+//                        Log.d("Servertesting", "creates socket");
+//                        outToServer = new DataOutputStream(clientSocket.getOutputStream());
+//                        Log.d("Servertesting", "establishes outputstream");
+////                        outToServer.writeBytes(sentence + "\n");
+////                        Log.d("SENT", "Message is sent to server");
+////
+////                        //waits and read input from, maybe not necessary in all cases
+////                        BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+////                        Log.d("From server", "received shit from server");
+////                        //modified sentence == results from server
+////                        modifiedSentence = inFromServer.readLine();
+////                        Log.d("From server", modifiedSentence);
+////                        clientSocket.close();
+////                        outToServer.close();
+//
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    //Your code goes here
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        thread.start();
 //        try {
 //            thread.join();
 //            Log.d("finishthread", "thread ends");
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-
-
 
 
         //Goes to class called ViewPolls
